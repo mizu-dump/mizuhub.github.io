@@ -295,7 +295,7 @@
   <div class="progress-bar"><div class="progress" id="progress"></div></div>
 </div>
 
-<!-- Game Selection Modal -->
+<!-- inside your modal content -->
 <div id="gameModal" class="modal">
   <div class="modal-content">
     <h2>Choose A Game</h2>
@@ -313,6 +313,11 @@
       <input type="radio" name="game" value="forest">
       <span class="checkmark"></span>
       99 Nights Forest
+    </label>
+    <label>
+      <input type="radio" name="game" value="plantsvsbrainrots">
+      <span class="checkmark"></span>
+      Plants Vs Brainrots
     </label>
     <button id="confirmGame">Confirm</button>
   </div>
@@ -366,6 +371,8 @@
     window.open("https://mizu-dump.github.io/Test/","_blank");
   } else if(selected.value === "forest"){
     window.open("https://mizu-dump.github.io/Test/","_blank");
+  } else if(selected.value === "plantsvsbrainrots"){
+    window.open("https://mizu-dump.github.io/PlantsVsBrainrots/","_blank");
   }
 });
 
