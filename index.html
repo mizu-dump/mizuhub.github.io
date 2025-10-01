@@ -20,7 +20,6 @@
     overflow:hidden;
   }
 
-  /* Space moving stars background */
   body::before{
     content:"";
     position:fixed;
@@ -134,14 +133,13 @@
   /* Premium Box */
   .premium-box{
     width:300px;
-    max-height:220px;
-    overflow-y:auto;
+    overflow:hidden;
     margin-top:25px;
-    padding:15px;
     border-radius:15px;
     background:rgba(255,255,255,0.05);
     box-shadow:0 0 20px #fff;
     text-align:left;
+    padding:15px;
   }
 
   .premium-box h2{
@@ -166,90 +164,54 @@
     margin-top:10px;
   }
 
-  /* Modal */
-  .modal {
-    display:none;
-    position:fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background:rgba(0,0,0,0.8);
-    z-index:99999;
-    justify-content:center;
-    align-items:center;
-  }
-  .modal-content {
-    background:#111;
-    padding:20px;
-    border-radius:12px;
-    box-shadow:0 0 20px #fff;
+  /* Supported Games Section */
+  .supported-games {
+    width:300px;
+    margin-top:20px;
     text-align:center;
-    width:280px;
-    animation:pop 0.3s ease;
-  }
-  .modal-content h2 {
-    margin-bottom:15px;
-    color:#fff;
-    text-shadow:0 0 10px #fff;
   }
 
-  /* Custom game choice styles */
-  .modal-content label {
-    display: flex;
-    align-items: center;
-    margin: 10px 0;
-    font-size: 1.1em;
-    cursor: pointer;
-    color: #fff;
-    position: relative;
-    padding-left: 30px;
-  }
-  .modal-content input[type="radio"] {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-  }
-  .modal-content .checkmark {
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 18px;
-    width: 18px;
-    border-radius: 50%;
-    border: 2px solid #888;
-    box-shadow: 0 0 5px #555;
-    transition: 0.3s;
-  }
-  .modal-content label:hover .checkmark {
-    border-color: #fff;
-    box-shadow: 0 0 10px #fff;
-  }
-  .modal-content input[type="radio"]:checked ~ .checkmark {
-    background: #fff;
-    border-color: #fff;
-    box-shadow: 0 0 15px #fff, 0 0 30px #fff;
+  .premium-images {
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:10px;
+    margin-top:10px;
   }
 
-  .modal-content button {
-    margin-top:15px;
+  .game-card {
+    position:relative;
+    display:block;
+    overflow:hidden;
+    border-radius:15px;
+    transition:transform 0.2s ease;
+  }
+
+  .game-card img {
     width:100%;
-    padding:12px;
-    border-radius:10px;
-    border:none;
-    background:#222;
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
-    transition:0.3s;
-  }
-  .modal-content button:hover {
-    background:#333;
-    transform:scale(1.05);
+    display:block;
+    border-radius:15px;
+    transition:transform 0.3s ease;
   }
 
-  @keyframes pop {
-    from {transform:scale(0.7);opacity:0;}
-    to {transform:scale(1);opacity:1;}
+  .game-card .game-text {
+    position:absolute;
+    top:8px;
+    left:50%;
+    transform:translateX(-50%);
+    color:#fff;
+    font-size:0.95em;
+    font-weight:bold;
+    text-shadow:0 0 5px #000, 0 0 10px #000;
+    pointer-events:none;
+  }
+
+  .game-card:hover img {
+    transform:scale(1.05);
+    box-shadow:0 0 15px #fff;
+  }
+
+  .game-card:active {
+    transform:scale(0.9);
   }
 
   @media(max-width:500px){
@@ -257,6 +219,7 @@
     .icons{font-size:1.5em}
     .buttons{width:230px}
     .premium-box{width:250px}
+    .supported-games{width:250px}
   }
 </style>
 </head>
@@ -284,27 +247,37 @@
     <li>Priority support</li>
     <li>And more...</li>
   </ul>
+  <button id="premiumBtn">Get Premium</button>
+</div>
 
-  <!-- Supported Games Section -->
-  <h3 style="margin-top:15px; color:#fff; text-align:center; text-shadow:0 0 10px #fff;">
+<!-- Supported Games Section -->
+<div class="supported-games">
+  <h3 style="margin:20px 0 10px; color:#fff; text-align:center; text-shadow:0 0 10px #fff;">
     Supported Game :
   </h3>
 
-  <!-- 4 images with rounded corners -->
   <div class="premium-images">
     <!-- First clickable image -->
-    <a href="https://www.roblox.com/games/126884695634066/Grow-a-Garden" target="_blank">
+    <a href="https://www.roblox.com/games/126884695634066/Grow-a-Garden" target="_blank" class="game-card">
       <img src="https://tr.rbxcdn.com/180DAY-785eedc4ce81fc2f8b74775e5b65bac9/768/432/Image/Webp/noFilter" 
            alt="Grow A Garden 🌶️">
+      <span class="game-text">Grow A Garden 🌶️</span>
     </a>
 
-    <!-- Placeholders for more supported games -->
-    <a href="#"><img src="https://via.placeholder.com/120" alt="Coming Soon"></a>
-    <a href="#"><img src="https://via.placeholder.com/120" alt="Coming Soon"></a>
-    <a href="#"><img src="https://via.placeholder.com/120" alt="Coming Soon"></a>
+    <!-- Placeholders -->
+    <a href="#" class="game-card">
+      <img src="https://via.placeholder.com/120" alt="Coming Soon">
+      <span class="game-text">Coming Soon</span>
+    </a>
+    <a href="#" class="game-card">
+      <img src="https://via.placeholder.com/120" alt="Coming Soon">
+      <span class="game-text">Coming Soon</span>
+    </a>
+    <a href="#" class="game-card">
+      <img src="https://via.placeholder.com/120" alt="Coming Soon">
+      <span class="game-text">Coming Soon</span>
+    </a>
   </div>
-
-  <button id="premiumBtn">Get Premium</button>
 </div>
 
 <footer>Website By: @mizuscripts</footer>
@@ -313,34 +286,6 @@
 <div class="notification" id="notification">
   <span id="notifText"></span>
   <div class="progress-bar"><div class="progress" id="progress"></div></div>
-</div>
-
-<!-- inside your modal content -->
-<div id="gameModal" class="modal">
-  <div class="modal-content">
-    <h2>Choose A Game</h2>
-    <label>
-      <input type="radio" name="game" value="garden">
-      <span class="checkmark"></span>
-      Grow A Garden
-    </label>
-    <label>
-      <input type="radio" name="game" value="brainrot">
-      <span class="checkmark"></span>
-      Steal A Brainrot
-    </label>
-    <label>
-      <input type="radio" name="game" value="forest">
-      <span class="checkmark"></span>
-      99 Nights Forest
-    </label>
-    <label>
-      <input type="radio" name="game" value="plantsvsbrainrots">
-      <span class="checkmark"></span>
-      Plants Vs Brainrots
-    </label>
-    <button id="confirmGame">Confirm</button>
-  </div>
 </div>
 
 <canvas id="stars"></canvas>
@@ -369,38 +314,6 @@
     }, 50);
   }
 
-  // Game modal
-  const gameModal = document.getElementById('gameModal');
-  const confirmGame = document.getElementById('confirmGame');
-
-  document.getElementById('getScript').addEventListener('click',()=>{
-    gameModal.style.display = "flex";
-  });
-
-  confirmGame.addEventListener('click',()=>{
-  let selected = document.querySelector('input[name="game"]:checked');
-  if(!selected){
-    alert("Please choose a game first!");
-    return;
-  }
-  gameModal.style.display = "none";
-
-  if(selected.value === "garden"){
-    window.open("https://mizu-dump.github.io/Test/","_blank");
-  } else if(selected.value === "brainrot"){
-    window.open("https://mizu-dump.github.io/Test/","_blank");
-  } else if(selected.value === "forest"){
-    window.open("https://mizu-dump.github.io/Test/","_blank");
-  } else if(selected.value === "plantsvsbrainrots"){
-    window.open("https://mizu-dump.github.io/Test/","_blank");
-  }
-});
-
-  window.addEventListener('click',(e)=>{
-    if(e.target === gameModal) gameModal.style.display="none";
-  });
-
-  // Other buttons
   document.getElementById('joinDiscord').addEventListener('click',()=>{
     navigator.clipboard.writeText('https://discord.gg/mxSvSpJe7s')
       .then(()=>{showNotification('Discord invite copied!')});
