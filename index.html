@@ -13,54 +13,83 @@
     color:#fff;
     display:flex;
     flex-direction:column;
-    justify-content:flex-start;
+    justify-content:center;
     align-items:center;
     min-height:100vh;
     text-align:center;
-    padding:20px;
+    overflow-x:hidden;
+  }
+  body:focus{outline:none}
+
+  /* Space moving stars background */
+  body::before{
+    content:"";
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background:black;
+    z-index:-2;
+  }
+  canvas{
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    z-index:-1;
   }
 
   h1{
     font-size:3em;
-    margin-bottom:10px;
+    color:white;
     text-shadow:0 0 10px #fff,0 0 20px #fff;
+    margin-bottom:10px;
   }
 
-  .icons{
-    margin-bottom:30px;
-    font-size:1.8em;
-  }
-  .icons a{
-    color:white;
-    margin:0 15px;
-    transition:0.3s;
-  }
-  .icons a:hover{transform:scale(1.2);text-shadow:0 0 10px #fff;}
+  .icons{margin-bottom:30px;font-size:1.8em;}
+  .icons a{color:white;margin:0 15px;transition:0.3s;outline:none}
+  .icons a:hover{text-shadow:0 0 10px #fff,0 0 20px #fff;transform:scale(1.3)}
 
   .buttons{
     display:flex;
     flex-direction:column;
-    gap:15px;
-    margin-bottom:25px;
-    width:260px;
+    gap:20px;
+    margin-bottom:20px;
+    width:280px;
   }
-  .buttons button{
-    padding:12px 0;
-    border-radius:15px;
-    border:2px solid #444;
+
+  .buttons button,
+  .premium-box button{
+    padding:15px 0;
+    border-radius:20px;
+    border:2px solid #555;
     background:rgba(0,0,0,0.6);
     color:white;
-    font-size:1.1em;
+    font-weight:bold;
+    font-size:1.2em;
     cursor:pointer;
     transition:0.3s;
-    user-select:none;
+    box-shadow:0 0 10px #fff,0 0 20px #fff inset;
     outline:none;
+    user-select:none;
   }
-  .buttons button:hover{background:rgba(255,255,255,0.1);transform:scale(1.05);}
+  .buttons button:hover,
+  .premium-box button:hover{
+    background:rgba(255,255,255,0.1);
+    transform:scale(1.05);
+  }
 
+  footer{
+    font-size:0.9em;
+    color:#aaa;
+    text-shadow:0 0 5px #fff;
+    margin-top:20px;
+  }
+
+  /* Premium Box */
   .premium-box{
     width:300px;
-    margin:20px auto;
+    max-height:220px;
+    overflow-y:auto;
+    margin-top:25px;
     padding:15px;
     border-radius:15px;
     background:rgba(255,255,255,0.05);
@@ -75,91 +104,53 @@
   }
   .premium-box ul{margin:10px 0;padding-left:20px;}
   .premium-box li{margin-bottom:6px;font-size:0.95em;}
-  .premium-box button{
-    width:100%;
-    margin-top:10px;
-    border:none;
-    padding:12px;
-    border-radius:10px;
-    background:#333;
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
-    transition:0.3s;
-    outline:none;
-  }
-  .premium-box button:hover{background:#444;transform:scale(1.05);}
+  .premium-box button{width:100%;margin-top:10px;}
 
-  footer{
-    font-size:0.9em;
-    color:#aaa;
-    text-shadow:0 0 5px #fff;
-    margin-top:20px;
+  /* Game gallery */
+  .game-gallery{
+    margin-top:30px;
+    display:flex;
+    overflow-x:auto;
+    gap:20px;
+    padding:10px 0;
+    scroll-snap-type:x mandatory;
+    scrollbar-width:none;
   }
-
-  /* Game Images Section */
-  .game-images{
-    margin-top:25px;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-    gap:15px;
-    width:90%;
-    max-width:900px;
-    animation:slideUp 1s ease;
-  }
+  .game-gallery::-webkit-scrollbar{display:none;}
   .game-card{
-    overflow:hidden;
+    flex:0 0 auto;
+    width:260px;
+    height:160px;
     border-radius:15px;
+    overflow:hidden;
+    position:relative;
     cursor:pointer;
     transition:transform 0.3s ease;
+    scroll-snap-align:center;
   }
   .game-card img{
     width:100%;
-    height:130px;
+    height:100%;
     object-fit:cover;
-    display:block;
     border-radius:15px;
-    transition:transform 0.3s ease, box-shadow 0.3s ease;
+    display:block;
   }
-  .game-card:hover img{
-    transform:scale(1.05);
-    box-shadow:0 0 15px #fff;
-  }
-  .game-card:active{transform:scale(0.95);}
+  .game-card:active{transform:scale(0.9)}
+
+  /* Slide up animation */
+  .game-card{animation:slideUp 0.8s ease both;}
   @keyframes slideUp{
-    from{opacity:0;transform:translateY(50px);}
-    to{opacity:1;transform:translateY(0);}
+    from{transform:translateY(40px);opacity:0;}
+    to{transform:translateY(0);opacity:1;}
   }
 
-  /* Modal */
-  .modal {
-    display:none;
-    position:fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background:rgba(0,0,0,0.8);
-    z-index:99999;
-    justify-content:center;
-    align-items:center;
+  @media(max-width:500px){
+    h1{font-size:2em}
+    .icons{font-size:1.5em}
+    .buttons{width:230px}
+    .premium-box{width:250px}
+    .game-card{width:200px;height:130px;}
   }
-  .modal-content {
-    background:#111;
-    padding:20px;
-    border-radius:12px;
-    box-shadow:0 0 20px #fff;
-    text-align:center;
-    width:280px;
-    animation:pop 0.3s ease;
-  }
-  .modal-content h2 {margin-bottom:15px;color:#fff;text-shadow:0 0 10px #fff;}
-  .modal-content label{display:block;margin:10px 0;color:#fff;cursor:pointer;}
-  .modal-content button{
-    margin-top:15px;width:100%;padding:12px;
-    border-radius:10px;border:none;background:#222;color:white;font-weight:bold;
-    cursor:pointer;transition:0.3s;
-  }
-  .modal-content button:hover{background:#333;transform:scale(1.05);}
-  @keyframes pop{from{transform:scale(0.7);opacity:0;}to{transform:scale(1);opacity:1;}}
 </style>
 </head>
 <body>
@@ -167,4 +158,60 @@
 <h1>MizuHub</h1>
 
 <div class="icons">
-  <a href="#"><i class="fab fa-discord
+  <a href="#" title="Discord"><i class="fab fa-discord"></i></a>
+  <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+</div>
+
+<div class="buttons">
+  <button id="getScript">Get Script | 📃</button>
+  <button id="joinDiscord">Join MizuHub Discord! | <i class="fab fa-discord"></i></button>
+</div>
+
+<!-- Premium Features Box -->
+<div class="premium-box">
+  <h2>🌟 Premium Features</h2>
+  <ul>
+    <li>Exclusive GUI access</li>
+    <li>Early updates & scripts</li>
+    <li>Custom themes</li>
+    <li>Priority support</li>
+    <li>And more...</li>
+  </ul>
+  <button id="premiumBtn">Get Premium</button>
+</div>
+
+<!-- Scrollable Game Gallery -->
+<div class="game-gallery">
+  <a class="game-card" href="https://www.roblox.com/games/126884695634066/Grow-a-Garden" target="_blank">
+    <img src="https://tr.rbxcdn.com/180DAY-785eedc4ce81fc2f8b74775e5b65bac9/768/432/Image/Webp/noFilter" alt="Grow A Garden">
+  </a>
+  <a class="game-card" href="https://www.roblox.com" target="_blank">
+    <img src="https://tr.rbxcdn.com/30DAY-04e3f8c4a4ef8d16e35a65ad96e5d412/768/432/Image/Webp/noFilter" alt="Steal A Brainrot">
+  </a>
+  <a class="game-card" href="https://www.roblox.com" target="_blank">
+    <img src="https://tr.rbxcdn.com/30DAY-56e7b1a632b2e28fa8f4e3b6b17c89b6/768/432/Image/Webp/noFilter" alt="99 Nights Forest">
+  </a>
+  <a class="game-card" href="https://www.roblox.com" target="_blank">
+    <img src="https://tr.rbxcdn.com/30DAY-2a9b65f1b2c8b89b1729e93fbc2a3fa2/768/432/Image/Webp/noFilter" alt="Plants Vs Brainrots">
+  </a>
+</div>
+
+<footer>Website By: @mizuscripts</footer>
+
+<canvas id="stars"></canvas>
+
+<script>
+  // Stars background
+  const canvas=document.getElementById('stars');
+  const ctx=canvas.getContext('2d');
+  let stars=[];let w,h;
+  function initCanvas(){w=canvas.width=window.innerWidth;h=canvas.height=window.innerHeight;
+    stars=[];for(let i=0;i<200;i++){stars.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.5,d:Math.random()*1.5});}}
+  function drawStars(){ctx.clearRect(0,0,w,h);ctx.fillStyle="white";ctx.beginPath();for(let s of stars){ctx.moveTo(s.x,s.y);ctx.arc(s.x,s.y,s.r,0,Math.PI*2,true);}ctx.fill();moveStars();}
+  let angle=0;function moveStars(){angle+=0.01;for(let s of stars){s.x+=Math.sin(angle+s.d)*0.5;s.y+=Math.cos(angle+s.d)*0.5;if(s.x<0)s.x=w;if(s.x>w)s.x=0;if(s.y<0)s.y=h;if(s.y>h)s.y=0;}}
+  function animate(){drawStars();requestAnimationFrame(animate);}
+  window.addEventListener('resize',initCanvas);initCanvas();animate();
+</script>
+
+</body>
+</html>
