@@ -17,9 +17,8 @@
     align-items:center;
     min-height:100vh;
     text-align:center;
-    overflow-x:hidden;
+    overflow:hidden;
   }
-  body:focus{outline:none}
 
   /* Space moving stars background */
   body::before{
@@ -30,6 +29,7 @@
     background:black;
     z-index:-2;
   }
+
   canvas{
     position:fixed;
     top:0; left:0;
@@ -44,9 +44,21 @@
     margin-bottom:10px;
   }
 
-  .icons{margin-bottom:30px;font-size:1.8em;}
-  .icons a{color:white;margin:0 15px;transition:0.3s;outline:none}
-  .icons a:hover{text-shadow:0 0 10px #fff,0 0 20px #fff;transform:scale(1.3)}
+  .icons{
+    margin-bottom:30px;
+    font-size:1.8em;
+  }
+
+  .icons a{
+    color:white;
+    margin:0 15px;
+    transition:0.3s;
+  }
+
+  .icons a:hover{
+    text-shadow:0 0 10px #fff,0 0 20px #fff;
+    transform:scale(1.3);
+  }
 
   .buttons{
     display:flex;
@@ -71,6 +83,7 @@
     outline:none;
     user-select:none;
   }
+
   .buttons button:hover,
   .premium-box button:hover{
     background:rgba(255,255,255,0.1);
@@ -82,6 +95,40 @@
     color:#aaa;
     text-shadow:0 0 5px #fff;
     margin-top:20px;
+  }
+
+  /* Notification */
+  .notification{
+    position:fixed;
+    top:20px;
+    left:50%;
+    transform:translateX(-50%);
+    background:white;
+    color:#000;
+    padding:12px 20px 16px;
+    border-radius:12px;
+    box-shadow:0 0 15px #fff;
+    opacity:0;
+    transition:0.4s;
+    z-index:9999;
+    width:260px;
+    text-align:center;
+  }
+  .notification.show{opacity:1;}
+
+  .progress-bar{
+    width:100%;
+    height:6px;
+    background:rgba(0,0,0,0.2);
+    border-radius:4px;
+    margin-top:8px;
+    overflow:hidden;
+  }
+  .progress{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,#888,#222);
+    transition:width 0.1s linear;
   }
 
   /* Premium Box */
@@ -96,52 +143,113 @@
     box-shadow:0 0 20px #fff;
     text-align:left;
   }
+
   .premium-box h2{
     text-align:center;
     margin-bottom:10px;
     color:#ffd700;
     text-shadow:0 0 10px #ffd700,0 0 20px #ffd700;
   }
-  .premium-box ul{margin:10px 0;padding-left:20px;}
-  .premium-box li{margin-bottom:6px;font-size:0.95em;}
-  .premium-box button{width:100%;margin-top:10px;}
 
-  /* Game gallery */
-  .game-gallery{
-    margin-top:30px;
-    display:flex;
-    overflow-x:auto;
-    gap:20px;
-    padding:10px 0;
-    scroll-snap-type:x mandatory;
-    scrollbar-width:none;
+  .premium-box ul{
+    margin:10px 0;
+    padding-left:20px;
   }
-  .game-gallery::-webkit-scrollbar{display:none;}
-  .game-card{
-    flex:0 0 auto;
-    width:260px;
-    height:160px;
-    border-radius:15px;
-    overflow:hidden;
-    position:relative;
-    cursor:pointer;
-    transition:transform 0.3s ease;
-    scroll-snap-align:center;
+
+  .premium-box li{
+    margin-bottom:6px;
+    font-size:0.95em;
   }
-  .game-card img{
+
+  .premium-box button{
     width:100%;
-    height:100%;
-    object-fit:cover;
-    border-radius:15px;
-    display:block;
+    margin-top:10px;
   }
-  .game-card:active{transform:scale(0.9)}
 
-  /* Slide up animation */
-  .game-card{animation:slideUp 0.8s ease both;}
-  @keyframes slideUp{
-    from{transform:translateY(40px);opacity:0;}
-    to{transform:translateY(0);opacity:1;}
+  /* Modal */
+  .modal {
+    display:none;
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background:rgba(0,0,0,0.8);
+    z-index:99999;
+    justify-content:center;
+    align-items:center;
+  }
+  .modal-content {
+    background:#111;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 0 20px #fff;
+    text-align:center;
+    width:280px;
+    animation:pop 0.3s ease;
+  }
+  .modal-content h2 {
+    margin-bottom:15px;
+    color:#fff;
+    text-shadow:0 0 10px #fff;
+  }
+
+  /* Custom game choice styles */
+  .modal-content label {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    font-size: 1.1em;
+    cursor: pointer;
+    color: #fff;
+    position: relative;
+    padding-left: 30px;
+  }
+  .modal-content input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .modal-content .checkmark {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    border: 2px solid #888;
+    box-shadow: 0 0 5px #555;
+    transition: 0.3s;
+  }
+  .modal-content label:hover .checkmark {
+    border-color: #fff;
+    box-shadow: 0 0 10px #fff;
+  }
+  .modal-content input[type="radio"]:checked ~ .checkmark {
+    background: #fff;
+    border-color: #fff;
+    box-shadow: 0 0 15px #fff, 0 0 30px #fff;
+  }
+
+  .modal-content button {
+    margin-top:15px;
+    width:100%;
+    padding:12px;
+    border-radius:10px;
+    border:none;
+    background:#222;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+  }
+  .modal-content button:hover {
+    background:#333;
+    transform:scale(1.05);
+  }
+
+  @keyframes pop {
+    from {transform:scale(0.7);opacity:0;}
+    to {transform:scale(1);opacity:1;}
   }
 
   @media(max-width:500px){
@@ -149,7 +257,6 @@
     .icons{font-size:1.5em}
     .buttons{width:230px}
     .premium-box{width:250px}
-    .game-card{width:200px;height:130px;}
   }
 </style>
 </head>
@@ -180,37 +287,295 @@
   <button id="premiumBtn">Get Premium</button>
 </div>
 
-<!-- Scrollable Game Gallery -->
-<div class="game-gallery">
-  <a class="game-card" href="https://www.roblox.com/games/126884695634066/Grow-a-Garden" target="_blank">
-    <img src="https://tr.rbxcdn.com/180DAY-785eedc4ce81fc2f8b74775e5b65bac9/768/432/Image/Webp/noFilter" alt="Grow A Garden">
-  </a>
-  <a class="game-card" href="https://www.roblox.com" target="_blank">
-    <img src="https://tr.rbxcdn.com/30DAY-04e3f8c4a4ef8d16e35a65ad96e5d412/768/432/Image/Webp/noFilter" alt="Steal A Brainrot">
-  </a>
-  <a class="game-card" href="https://www.roblox.com" target="_blank">
-    <img src="https://tr.rbxcdn.com/30DAY-56e7b1a632b2e28fa8f4e3b6b17c89b6/768/432/Image/Webp/noFilter" alt="99 Nights Forest">
-  </a>
-  <a class="game-card" href="https://www.roblox.com" target="_blank">
-    <img src="https://tr.rbxcdn.com/30DAY-2a9b65f1b2c8b89b1729e93fbc2a3fa2/768/432/Image/Webp/noFilter" alt="Plants Vs Brainrots">
-  </a>
+<div class="supported-game">
+  <h2>Supported Game:</h2>
+  <div class="game-carousel">
+    <div class="carousel-wrapper">
+      <div class="game-item" onclick="openGame('garden')">
+        <img src="https://tr.rbxcdn.com/180DAY-785eedc4ce81fc2f8b74775e5b65bac9/768/432/Image/Webp/noFilter" alt="Grow A Garden">
+        <div class="overlay">Grow A Garden</div>
+      </div>
+      <div class="game-item" onclick="openGame('brainrot')">
+        <img src="https://tr.rbxcdn.com/180DAY-32d8d6ed3818d526fef20781f1c68cf9/768/432/Image/Webp/noFilter" alt="Steal A Brainrot">
+        <div class="overlay">Steal A Brainrot</div>
+      </div>
+      <div class="game-item" onclick="openGame('forest')">
+        <img src="https://tr.rbxcdn.com/180DAY-821d9599ac5c3ebe3ade368489c06110/768/432/Image/Webp/noFilter" alt="99 Nights In The Forest">
+        <div class="overlay">99 Nights In The Forest</div>
+      </div>
+      <div class="game-item" onclick="openGame('plantsvsbrainrots')">
+        <img src="https://tr.rbxcdn.com/180DAY-f7c7a703050a702aef0bb4b78c8d2bfd/768/432/Image/Webp/noFilter" alt="Plants Vs Brainrots">
+        <div class="overlay">Plants Vs Brainrots</div>
+      </div>
+    </div>
+    <!-- Dots indicators -->
+    <div class="carousel-dots"></div>
+  </div>
 </div>
 
+<style>
+.supported-game{margin-top:30px;text-align:center;color:#fff;}
+.supported-game h2{margin-bottom:15px; text-shadow:0 0 10px #fff,0 0 20px #fff;}
+
+.game-carousel{position:relative;width:100%;overflow:hidden;}
+.carousel-wrapper{display:flex;transition: transform 0.8s ease;}
+.game-item{flex:0 0 100%;position:relative;display:flex;justify-content:center;align-items:center;cursor:pointer;}
+.game-item img{
+  width:70%;       /* smaller so overlay text + dots have space */
+  max-width:260px;
+  height:auto;
+  border-radius:25px;
+  object-fit:cover;
+  box-shadow:0 0 15px #fff inset, 0 0 15px #fff;
+}
+.overlay{
+  position:absolute;
+  bottom:35px; /* moved up to avoid dots */
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(0,0,0,0.6);
+  color:white;
+  padding:5px 10px;
+  border-radius:10px;
+  font-weight:bold;
+  text-align:center;
+  width:80%;
+}
+
+/* Dots */
+.carousel-dots{
+  position:absolute;
+  bottom:10px; /* dots lower than overlay */
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  gap:8px;
+  z-index:10;
+}
+.carousel-dots span{
+  width:8px;
+  height:8px;
+  background:rgba(255,255,255,0.5);
+  border-radius:50%;
+  display:inline-block;
+  transition:background 0.3s;
+}
+.carousel-dots span.active{
+  background:#fff;
+}
+
+@media(max-width:600px){
+  .game-item img{
+    width:85%;
+    max-width:200px;
+  }
+}
+</style>
+
+<script>
+// Open Roblox game
+function openGame(game){
+  let url="";
+  switch(game){
+    case "garden": url="https://www.roblox.com/games/126884695634066/Grow-a-Garden"; break;
+    case "brainrot": url="https://www.roblox.com/games/109983668079237/Steal-a-Brainrot"; break;
+    case "forest": url="https://www.roblox.com/games/79546208627805/99-Nights-in-The-Forest"; break;
+    case "plantsvsbrainrots": url="https://www.roblox.com/games/127742093697776/Plants-Vs-Brainrots"; break;
+  }
+  if(url) window.open(url,"_blank");
+}
+
+// Carousel for all devices
+const wrapper = document.querySelector('.carousel-wrapper');
+const items = document.querySelectorAll('.game-item');
+const dotsContainer = document.querySelector('.carousel-dots');
+let index = 0;
+
+// Create dots
+items.forEach((_,i)=>{
+  const dot = document.createElement('span');
+  if(i===0) dot.classList.add('active');
+  dotsContainer.appendChild(dot);
+});
+const dots = dotsContainer.querySelectorAll('span');
+
+function showSlide(i){
+  wrapper.style.transform = `translateX(-${i*100}%)`;
+  dots.forEach(d=>d.classList.remove('active'));
+  dots[i].classList.add('active');
+}
+
+// Initial animation on load
+window.addEventListener('load', ()=>{
+  showSlide(0);
+});
+
+// Slide every 5s
+setInterval(()=>{
+  index = (index+1)%items.length;
+  showSlide(index);
+},5000);
+</script>
+
 <footer>Website By: @mizuscripts</footer>
+
+<!-- Notification with progress bar -->
+<div class="notification" id="notification">
+  <span id="notifText"></span>
+  <div class="progress-bar"><div class="progress" id="progress"></div></div>
+</div>
+
+<!-- inside your modal content -->
+<div id="gameModal" class="modal">
+  <div class="modal-content">
+    <h2>Choose A Game</h2>
+    <label>
+      <input type="radio" name="game" value="garden">
+      <span class="checkmark"></span>
+      Grow A Garden
+    </label>
+    <label>
+      <input type="radio" name="game" value="brainrot">
+      <span class="checkmark"></span>
+      Steal A Brainrot
+    </label>
+    <label>
+      <input type="radio" name="game" value="forest">
+      <span class="checkmark"></span>
+      99 Nights Forest
+    </label>
+    <label>
+      <input type="radio" name="game" value="plantsvsbrainrots">
+      <span class="checkmark"></span>
+      Plants Vs Brainrots
+    </label>
+    <button id="confirmGame">Confirm</button>
+  </div>
+</div>
 
 <canvas id="stars"></canvas>
 
 <script>
-  // Stars background
-  const canvas=document.getElementById('stars');
-  const ctx=canvas.getContext('2d');
-  let stars=[];let w,h;
-  function initCanvas(){w=canvas.width=window.innerWidth;h=canvas.height=window.innerHeight;
-    stars=[];for(let i=0;i<200;i++){stars.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.5,d:Math.random()*1.5});}}
-  function drawStars(){ctx.clearRect(0,0,w,h);ctx.fillStyle="white";ctx.beginPath();for(let s of stars){ctx.moveTo(s.x,s.y);ctx.arc(s.x,s.y,s.r,0,Math.PI*2,true);}ctx.fill();moveStars();}
-  let angle=0;function moveStars(){angle+=0.01;for(let s of stars){s.x+=Math.sin(angle+s.d)*0.5;s.y+=Math.cos(angle+s.d)*0.5;if(s.x<0)s.x=w;if(s.x>w)s.x=0;if(s.y<0)s.y=h;if(s.y>h)s.y=0;}}
-  function animate(){drawStars();requestAnimationFrame(animate);}
-  window.addEventListener('resize',initCanvas);initCanvas();animate();
+  const notification = document.getElementById('notification');
+  const notifText = document.getElementById('notifText');
+  const progress = document.getElementById('progress');
+  let notifActive = false;
+
+  function showNotification(text){
+    if(notifActive) return;
+    notifActive = true;
+    notifText.textContent = text;
+    notification.classList.add('show');
+    progress.style.width = "0%";
+    let width = 0;
+    let interval = setInterval(()=>{
+      width += 100 / (3500 / 50);
+      progress.style.width = width + "%";
+      if(width >= 100){
+        clearInterval(interval);
+        notification.classList.remove('show');
+        notifActive = false;
+      }
+    }, 50);
+  }
+
+  // Game modal
+  const gameModal = document.getElementById('gameModal');
+  const confirmGame = document.getElementById('confirmGame');
+
+  document.getElementById('getScript').addEventListener('click',()=>{
+    gameModal.style.display = "flex";
+  });
+
+  confirmGame.addEventListener('click',()=>{
+  let selected = document.querySelector('input[name="game"]:checked');
+  if(!selected){
+    alert("Please choose a game first!");
+    return;
+  }
+  gameModal.style.display = "none";
+
+  if(selected.value === "garden"){
+    window.open("https://mizu-dump.github.io/Test/","_blank");
+  } else if(selected.value === "brainrot"){
+    window.open("https://mizu-dump.github.io/Test/","_blank");
+  } else if(selected.value === "forest"){
+    window.open("https://mizu-dump.github.io/Test/","_blank");
+  } else if(selected.value === "plantsvsbrainrots"){
+    window.open("https://mizu-dump.github.io/Test/","_blank");
+  }
+});
+
+  window.addEventListener('click',(e)=>{
+    if(e.target === gameModal) gameModal.style.display="none";
+  });
+
+  // Other buttons
+  document.getElementById('joinDiscord').addEventListener('click',()=>{
+    navigator.clipboard.writeText('https://discord.gg/mxSvSpJe7s')
+      .then(()=>{showNotification('Discord invite copied!')});
+  });
+
+  document.getElementById('premiumBtn').addEventListener('click',()=>{
+    navigator.clipboard.writeText('https://discord.gg/mxSvSpJe7s')
+      .then(()=>{showNotification('Contact us on Discord for Premium!')});
+  });
+
+  // Space stars animation
+  const canvas = document.getElementById('stars');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+  let w, h;
+
+  function initCanvas(){
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+    stars = [];
+    for(let i=0;i<200;i++){
+      stars.push({
+        x:Math.random()*w,
+        y:Math.random()*h,
+        r:Math.random()*1.5,
+        d:Math.random()*1.5
+      });
+    }
+  }
+
+  function drawStars(){
+    ctx.clearRect(0,0,w,h);
+    ctx.fillStyle = "white";
+    ctx.beginPath();
+    for(let i=0;i<stars.length;i++){
+      let s = stars[i];
+      ctx.moveTo(s.x,s.y);
+      ctx.arc(s.x,s.y,s.r,0,Math.PI*2,true);
+    }
+    ctx.fill();
+    moveStars();
+  }
+
+  let angle = 0;
+  function moveStars(){
+    angle += 0.01;
+    for(let i=0;i<stars.length;i++){
+      let s = stars[i];
+      s.x += Math.sin(angle+s.d)*0.5;
+      s.y += Math.cos(angle+s.d)*0.5;
+      if(s.x<0)s.x=w;
+      if(s.x>w)s.x=0;
+      if(s.y<0)s.y=h;
+      if(s.y>h)s.y=0;
+    }
+  }
+
+  function animate(){
+    drawStars();
+    requestAnimationFrame(animate);
+  }
+
+  window.addEventListener('resize',initCanvas);
+  initCanvas();
+  animate();
 </script>
 
 </body>
