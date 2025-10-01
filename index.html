@@ -13,81 +13,82 @@
     color:#fff;
     display:flex;
     flex-direction:column;
-    justify-content:center;
+    justify-content:flex-start;
     align-items:center;
     min-height:100vh;
     text-align:center;
-    overflow:hidden;
-  }
-
-  body::before{
-    content:"";
-    position:fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background:black;
-    z-index:-2;
-  }
-
-  canvas{
-    position:fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    z-index:-1;
+    padding:20px;
   }
 
   h1{
     font-size:3em;
-    color:white;
-    text-shadow:0 0 10px #fff,0 0 20px #fff;
     margin-bottom:10px;
+    text-shadow:0 0 10px #fff,0 0 20px #fff;
   }
 
   .icons{
     margin-bottom:30px;
     font-size:1.8em;
   }
-
   .icons a{
     color:white;
     margin:0 15px;
     transition:0.3s;
   }
-
-  .icons a:hover{
-    text-shadow:0 0 10px #fff,0 0 20px #fff;
-    transform:scale(1.3);
-  }
+  .icons a:hover{transform:scale(1.2);text-shadow:0 0 10px #fff;}
 
   .buttons{
     display:flex;
     flex-direction:column;
-    gap:20px;
-    margin-bottom:20px;
-    width:280px;
+    gap:15px;
+    margin-bottom:25px;
+    width:260px;
   }
-
-  .buttons button,
-  .premium-box button{
-    padding:15px 0;
-    border-radius:20px;
-    border:2px solid #555;
+  .buttons button{
+    padding:12px 0;
+    border-radius:15px;
+    border:2px solid #444;
     background:rgba(0,0,0,0.6);
     color:white;
-    font-weight:bold;
-    font-size:1.2em;
+    font-size:1.1em;
     cursor:pointer;
     transition:0.3s;
-    box-shadow:0 0 10px #fff,0 0 20px #fff inset;
-    outline:none;
     user-select:none;
+    outline:none;
   }
+  .buttons button:hover{background:rgba(255,255,255,0.1);transform:scale(1.05);}
 
-  .buttons button:hover,
-  .premium-box button:hover{
-    background:rgba(255,255,255,0.1);
-    transform:scale(1.05);
+  .premium-box{
+    width:300px;
+    margin:20px auto;
+    padding:15px;
+    border-radius:15px;
+    background:rgba(255,255,255,0.05);
+    box-shadow:0 0 20px #fff;
+    text-align:left;
   }
+  .premium-box h2{
+    text-align:center;
+    margin-bottom:10px;
+    color:#ffd700;
+    text-shadow:0 0 10px #ffd700,0 0 20px #ffd700;
+  }
+  .premium-box ul{margin:10px 0;padding-left:20px;}
+  .premium-box li{margin-bottom:6px;font-size:0.95em;}
+  .premium-box button{
+    width:100%;
+    margin-top:10px;
+    border:none;
+    padding:12px;
+    border-radius:10px;
+    background:#333;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+    outline:none;
+  }
+  .premium-box button:hover{background:#444;transform:scale(1.05);}
 
   footer{
     font-size:0.9em;
@@ -96,131 +97,69 @@
     margin-top:20px;
   }
 
-  /* Notification */
-  .notification{
-    position:fixed;
-    top:20px;
-    left:50%;
-    transform:translateX(-50%);
-    background:white;
-    color:#000;
-    padding:12px 20px 16px;
-    border-radius:12px;
-    box-shadow:0 0 15px #fff;
-    opacity:0;
-    transition:0.4s;
-    z-index:9999;
-    width:260px;
-    text-align:center;
-  }
-  .notification.show{opacity:1;}
-
-  .progress-bar{
-    width:100%;
-    height:6px;
-    background:rgba(0,0,0,0.2);
-    border-radius:4px;
-    margin-top:8px;
-    overflow:hidden;
-  }
-  .progress{
-    height:100%;
-    width:0%;
-    background:linear-gradient(90deg,#888,#222);
-    transition:width 0.1s linear;
-  }
-
-  /* Premium Box */
-  .premium-box{
-    width:300px;
-    overflow:hidden;
+  /* Game Images Section */
+  .game-images{
     margin-top:25px;
-    border-radius:15px;
-    background:rgba(255,255,255,0.05);
-    box-shadow:0 0 20px #fff;
-    text-align:left;
-    padding:15px;
-  }
-
-  .premium-box h2{
-    text-align:center;
-    margin-bottom:10px;
-    color:#ffd700;
-    text-shadow:0 0 10px #ffd700,0 0 20px #ffd700;
-  }
-
-  .premium-box ul{
-    margin:10px 0;
-    padding-left:20px;
-  }
-
-  .premium-box li{
-    margin-bottom:6px;
-    font-size:0.95em;
-  }
-
-  .premium-box button{
-    width:100%;
-    margin-top:10px;
-  }
-
-  /* Supported Games Section */
-  .supported-games {
-    width:300px;
-    margin-top:20px;
-    text-align:center;
-  }
-
-  .premium-images {
     display:grid;
-    grid-template-columns:repeat(2, 1fr);
-    gap:10px;
-    margin-top:10px;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:15px;
+    width:90%;
+    max-width:900px;
+    animation:slideUp 1s ease;
   }
-
-  .game-card {
-    position:relative;
-    display:block;
+  .game-card{
     overflow:hidden;
     border-radius:15px;
-    transition:transform 0.2s ease;
-  }
-
-  .game-card img {
-    width:100%;
-    display:block;
-    border-radius:15px;
+    cursor:pointer;
     transition:transform 0.3s ease;
   }
-
-  .game-card .game-text {
-    position:absolute;
-    top:8px;
-    left:50%;
-    transform:translateX(-50%);
-    color:#fff;
-    font-size:0.95em;
-    font-weight:bold;
-    text-shadow:0 0 5px #000, 0 0 10px #000;
-    pointer-events:none;
+  .game-card img{
+    width:100%;
+    height:130px;
+    object-fit:cover;
+    display:block;
+    border-radius:15px;
+    transition:transform 0.3s ease, box-shadow 0.3s ease;
   }
-
-  .game-card:hover img {
+  .game-card:hover img{
     transform:scale(1.05);
     box-shadow:0 0 15px #fff;
   }
-
-  .game-card:active {
-    transform:scale(0.9);
+  .game-card:active{transform:scale(0.95);}
+  @keyframes slideUp{
+    from{opacity:0;transform:translateY(50px);}
+    to{opacity:1;transform:translateY(0);}
   }
 
-  @media(max-width:500px){
-    h1{font-size:2em}
-    .icons{font-size:1.5em}
-    .buttons{width:230px}
-    .premium-box{width:250px}
-    .supported-games{width:250px}
+  /* Modal */
+  .modal {
+    display:none;
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background:rgba(0,0,0,0.8);
+    z-index:99999;
+    justify-content:center;
+    align-items:center;
   }
+  .modal-content {
+    background:#111;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 0 20px #fff;
+    text-align:center;
+    width:280px;
+    animation:pop 0.3s ease;
+  }
+  .modal-content h2 {margin-bottom:15px;color:#fff;text-shadow:0 0 10px #fff;}
+  .modal-content label{display:block;margin:10px 0;color:#fff;cursor:pointer;}
+  .modal-content button{
+    margin-top:15px;width:100%;padding:12px;
+    border-radius:10px;border:none;background:#222;color:white;font-weight:bold;
+    cursor:pointer;transition:0.3s;
+  }
+  .modal-content button:hover{background:#333;transform:scale(1.05);}
+  @keyframes pop{from{transform:scale(0.7);opacity:0;}to{transform:scale(1);opacity:1;}}
 </style>
 </head>
 <body>
@@ -228,158 +167,4 @@
 <h1>MizuHub</h1>
 
 <div class="icons">
-  <a href="#" title="Discord"><i class="fab fa-discord"></i></a>
-  <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
-</div>
-
-<div class="buttons">
-  <button id="getScript">Get Script | 📃</button>
-  <button id="joinDiscord">Join MizuHub Discord! | <i class="fab fa-discord"></i></button>
-</div>
-
-<!-- Premium Features Box -->
-<div class="premium-box" id="premiumBox">
-  <h2>🌟 Premium Features</h2>
-  <ul>
-    <li>Exclusive GUI access</li>
-    <li>Early updates & scripts</li>
-    <li>Custom themes</li>
-    <li>Priority support</li>
-    <li>And more...</li>
-  </ul>
-  <button id="premiumBtn">Get Premium</button>
-</div>
-
-<!-- Supported Games Section -->
-<div class="supported-games">
-  <h3 style="margin:20px 0 10px; color:#fff; text-align:center; text-shadow:0 0 10px #fff;">
-    Supported Game :
-  </h3>
-
-  <div class="premium-images">
-    <!-- First clickable image -->
-    <a href="https://www.roblox.com/games/126884695634066/Grow-a-Garden" target="_blank" class="game-card">
-      <img src="https://tr.rbxcdn.com/180DAY-785eedc4ce81fc2f8b74775e5b65bac9/768/432/Image/Webp/noFilter" 
-           alt="Grow A Garden 🌶️">
-      <span class="game-text">Grow A Garden 🌶️</span>
-    </a>
-
-    <!-- Placeholders -->
-    <a href="#" class="game-card">
-      <img src="https://via.placeholder.com/120" alt="Coming Soon">
-      <span class="game-text">Coming Soon</span>
-    </a>
-    <a href="#" class="game-card">
-      <img src="https://via.placeholder.com/120" alt="Coming Soon">
-      <span class="game-text">Coming Soon</span>
-    </a>
-    <a href="#" class="game-card">
-      <img src="https://via.placeholder.com/120" alt="Coming Soon">
-      <span class="game-text">Coming Soon</span>
-    </a>
-  </div>
-</div>
-
-<footer>Website By: @mizuscripts</footer>
-
-<!-- Notification with progress bar -->
-<div class="notification" id="notification">
-  <span id="notifText"></span>
-  <div class="progress-bar"><div class="progress" id="progress"></div></div>
-</div>
-
-<canvas id="stars"></canvas>
-
-<script>
-  const notification = document.getElementById('notification');
-  const notifText = document.getElementById('notifText');
-  const progress = document.getElementById('progress');
-  let notifActive = false;
-
-  function showNotification(text){
-    if(notifActive) return;
-    notifActive = true;
-    notifText.textContent = text;
-    notification.classList.add('show');
-    progress.style.width = "0%";
-    let width = 0;
-    let interval = setInterval(()=>{
-      width += 100 / (3500 / 50);
-      progress.style.width = width + "%";
-      if(width >= 100){
-        clearInterval(interval);
-        notification.classList.remove('show');
-        notifActive = false;
-      }
-    }, 50);
-  }
-
-  document.getElementById('joinDiscord').addEventListener('click',()=>{
-    navigator.clipboard.writeText('https://discord.gg/mxSvSpJe7s')
-      .then(()=>{showNotification('Discord invite copied!')});
-  });
-
-  document.getElementById('premiumBtn').addEventListener('click',()=>{
-    navigator.clipboard.writeText('https://discord.gg/mxSvSpJe7s')
-      .then(()=>{showNotification('Contact us on Discord for Premium!')});
-  });
-
-  // Space stars animation
-  const canvas = document.getElementById('stars');
-  const ctx = canvas.getContext('2d');
-  let stars = [];
-  let w, h;
-
-  function initCanvas(){
-    w = canvas.width = window.innerWidth;
-    h = canvas.height = window.innerHeight;
-    stars = [];
-    for(let i=0;i<200;i++){
-      stars.push({
-        x:Math.random()*w,
-        y:Math.random()*h,
-        r:Math.random()*1.5,
-        d:Math.random()*1.5
-      });
-    }
-  }
-
-  function drawStars(){
-    ctx.clearRect(0,0,w,h);
-    ctx.fillStyle = "white";
-    ctx.beginPath();
-    for(let i=0;i<stars.length;i++){
-      let s = stars[i];
-      ctx.moveTo(s.x,s.y);
-      ctx.arc(s.x,s.y,s.r,0,Math.PI*2,true);
-    }
-    ctx.fill();
-    moveStars();
-  }
-
-  let angle = 0;
-  function moveStars(){
-    angle += 0.01;
-    for(let i=0;i<stars.length;i++){
-      let s = stars[i];
-      s.x += Math.sin(angle+s.d)*0.5;
-      s.y += Math.cos(angle+s.d)*0.5;
-      if(s.x<0)s.x=w;
-      if(s.x>w)s.x=0;
-      if(s.y<0)s.y=h;
-      if(s.y>h)s.y=0;
-    }
-  }
-
-  function animate(){
-    drawStars();
-    requestAnimationFrame(animate);
-  }
-
-  window.addEventListener('resize',initCanvas);
-  initCanvas();
-  animate();
-</script>
-
-</body>
-</html>
+  <a href="#"><i class="fab fa-discord
